@@ -13,8 +13,8 @@ After the script has completed just fix the script in package.json and your good
 
 ## Future enhancements
 - [ ] Replace package.json scripts from within the script
-- [ ] svg support
-- [ ] sass support
+- [x] svg support
+- [x] sass support
 - [ ] Flag to exclude react / react-dom / react-router from build
 - [ ] Flag to include mui + styled
 

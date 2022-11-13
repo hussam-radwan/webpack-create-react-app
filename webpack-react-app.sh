@@ -4,33 +4,60 @@
 
 ((!$#)) && echo No arguments supplied!
 
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+TEMP_TSCONFIG=$(<"$SCRIPT_DIR"/templates/tsconfig.json)
+TEMP_WEBPACK_CONFIG=$(<"$SCRIPT_DIR"/templates/webpack.config.js)
+TEMP_INDEX_HTML=$(<"$SCRIPT_DIR"/templates/index.html)
+TEMP_SCRIPT=$(<"$SCRIPT_DIR"/templates/package-script.txt)
+TEMP_SRC_INDEX=$(<"$SCRIPT_DIR"/templates/index.tsx)
+TEMP_GLOBALS_D_TS=$(<"$SCRIPT_DIR"/templates/globals.d.ts)
+TEMP_GLOBALS_SCSS=$(<"$SCRIPT_DIR"/templates/globals.scss)
+
 mkdir "$1"
 cd "$1"
 npm init -y
 
-cd "$1"
 yarn add -D typescript
 
-TEMP_TSCONFIG="{\n  \"compilerOptions\": {\n    \"esModuleInterop\": true,\n    \"jsx\": \"react\",\n    \"module\": \"esnext\",\n    \"moduleResolution\": \"node\",\n    \"lib\": [\n      \"dom\",\n      \"esnext\"\n    ],\n    \"strict\": true,\n    \"sourceMap\": true,\n    \"target\": \"esnext\",\n  },\n  \"exclude\": [\n    \"node_modules\"\n  ]\n}";
+## Create tsconfig
 echo -e "$TEMP_TSCONFIG" > tsconfig.json
 
+## Add webpack related libraries
 yarn add -D webpack webpack-cli webpack-dev-server css-loader html-webpack-plugin mini-css-extract-plugin ts-loader
 
-TEMP_WEBPACK_CONFIG="const prod = process.env.NODE_ENV === 'production';\n\nconst HtmlWebpackPlugin = require('html-webpack-plugin');\nconst MiniCssExtractPlugin = require('mini-css-extract-plugin');\n\nmodule.exports = {\n  mode: prod ? 'production' : 'development',\n  entry: './src/index.tsx',\n  output: {\n    path: __dirname + '/dist/',\n  },\n  module: {\n    rules: [\n      {\n        test: /\.(ts|tsx)$/,\n        exclude: /node_modules/,\n        resolve: {\n          extensions: ['.ts', '.tsx', '.js', '.json'],\n        },\n        use: 'ts-loader',\n      },\n      {\n        test: /\.css$/,\n        use: [MiniCssExtractPlugin.loader, 'css-loader'],\n      },\n    ]\n  },\n  devtool: prod ? undefined : 'source-map',\n  plugins: [\n    new HtmlWebpackPlugin({\n      template: 'index.html',\n    }),\n    new MiniCssExtractPlugin(),\n  ],\n};";
+## Add svg lib
+## https://react-svgr.com/docs/webpack/
+yarn add -D @svgr/webpack
+
+## Add scss handles asper webpack 
+## https://webpack.js.org/loaders/sass-loader/
+yarn add -D style-loader dart-sass sass-loader sass
+
+## create webpackfile
 echo -e "$TEMP_WEBPACK_CONFIG" > webpack.config.js
 
-TEMP_INDEX_HTML="<!DOCTYPE html>\n<html>\n<head lang=\"en\">\n  <title>Hello React</title>\n</html>\n<body>\n  <div id=\"app-root\">App is loading...</div>\n<script src=\"https://unpkg.com/react@18/umd/react.development.js\" crossorigin></script>\n<script src=\"https://unpkg.com/react-dom@18/umd/react-dom.development.js\" crossorigin></script>\n</body>";
+## create index.html (used in run start and build)
 echo -e "$TEMP_INDEX_HTML" > index.html
 
+## add react & necessary types
 yarn add react react-dom
 yarn add -D @types/react @types/react-dom
 
-echo "/*replace script with the below commands*/"
-TEMP_SCRIPT="\"start\": \"webpack serve --port 3000\",\n\"build\": \"NODE_ENV=production webpack\"";
+## TODO replace scripts in package.json
 echo -e "$TEMP_SCRIPT" >> package.json
 
+## Create app index.ts
 mkdir src 
 cd src
-TEMP_SRC_INDEX="import React from 'react'\nimport { createRoot } from 'react-dom/client'\n\nconst container = document.getElementById('app-root')!\nconst root = createRoot(container)\nroot.render(<h1>Hello React!</h1>)";
 echo -e "$TEMP_SRC_INDEX" > index.tsx
+echo -e "$TEMP_GLOBALS_D_TS" > globals.d.ts
+echo -e "$TEMP_GLOBALS_SCSS" > globals.scss
 
+SCRIPT_DIR
+TEMP_TSCONFIG
+TEMP_WEBPACK_CONFIG
+TEMP_INDEX_HTML
+TEMP_SCRIPT
+TEMP_SRC_INDEX
+TEMP_GLOBALS_D_TS
+TEMP_GLOBALS_SCSS

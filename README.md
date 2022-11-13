@@ -12,9 +12,13 @@ bash ./webpack-react-app.sh <your app name>
 After the script has completed just fix the script in package.json and your good to go
 
 ## Future enhancements
-- [ ] Replace package.json scripts from within the script
+- [ ] Replace package.json scripts block from within the script
 - [x] svg support
 - [x] sass support
+- [x] png|jpg|jpeg|gif support 
+- [x] support fonts imports
+- [x] allow json type
+- [x] dotenv-webpack added
 - [ ] Flag to exclude react / react-dom / react-router from build
 - [ ] Flag to include mui + styled
 

@@ -33,6 +33,9 @@ yarn add -D @svgr/webpack
 ## https://webpack.js.org/loaders/sass-loader/
 yarn add -D style-loader dart-sass sass-loader sass
 
+## Usage of environment variabls
+yarn add -D dotenv-webpack
+
 ## create webpackfile
 echo -e "$TEMP_WEBPACK_CONFIG" > webpack.config.js
 
@@ -52,12 +55,3 @@ cd src
 echo -e "$TEMP_SRC_INDEX" > index.tsx
 echo -e "$TEMP_GLOBALS_D_TS" > globals.d.ts
 echo -e "$TEMP_GLOBALS_SCSS" > globals.scss
-
-SCRIPT_DIR
-TEMP_TSCONFIG
-TEMP_WEBPACK_CONFIG
-TEMP_INDEX_HTML
-TEMP_SCRIPT
-TEMP_SRC_INDEX
-TEMP_GLOBALS_D_TS
-TEMP_GLOBALS_SCSS

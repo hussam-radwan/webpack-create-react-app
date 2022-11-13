@@ -60,4 +60,9 @@ module.exports = {
     new Dotenv({
       systemvars: true,}),
   ],
+  externals: {
+    'react': 'React',
+    'react-dom': 'ReactDOM',
+    'react-router': 'ReactRouter'
+  }
 };

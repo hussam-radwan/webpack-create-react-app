@@ -12,6 +12,10 @@ TEMP_SCRIPT=$(<"$SCRIPT_DIR"/templates/package-script.txt)
 TEMP_SRC_INDEX=$(<"$SCRIPT_DIR"/templates/index.tsx)
 TEMP_GLOBALS_D_TS=$(<"$SCRIPT_DIR"/templates/globals.d.ts)
 TEMP_GLOBALS_SCSS=$(<"$SCRIPT_DIR"/templates/globals.scss)
+TEMP_PRETTIER_IGNORE=$(<"$SCRIPT_DIR"/templates/.prettierignore)
+TEMP_PRETTIER_RC=$(<"$SCRIPT_DIR"/templates/.prettierrc.json)
+
+
 
 mkdir "$1"
 cd "$1"
@@ -46,6 +50,11 @@ echo -e "$TEMP_INDEX_HTML" > index.html
 yarn add react react-dom
 yarn add -D @types/react @types/react-dom
 
+## add prettier
+yarn add --dev --exact prettier
+echo -e "$TEMP_PRETTIER_IGNORE"  > .prettierignore
+echo -e "$TEMP_PRETTIER_RC" > .prettierrc.json
+
 ## TODO replace scripts in package.json
 echo -e "$TEMP_SCRIPT" >> package.json
 
@@ -55,3 +64,13 @@ cd src
 echo -e "$TEMP_SRC_INDEX" > index.tsx
 echo -e "$TEMP_GLOBALS_D_TS" > globals.d.ts
 echo -e "$TEMP_GLOBALS_SCSS" > globals.scss
+
+mkdir components
+mkdir pages
+mkdir templates
+mkdir store
+mkdir assets
+mkdir assets/i18n
+mkdir assets/images
+mkdir assets/fonts
+mkdir assets/styles

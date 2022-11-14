@@ -1,3 +1,5 @@
 /*Please replace scripts above with the below*/
 "start": "webpack serve --port 3000",
-"build": "NODE_ENV=production webpack"
+"build": "NODE_ENV=production webpack",
+"pretty": "prettier --check ./src",
+"pretty:fix": "prettier --write ./src"

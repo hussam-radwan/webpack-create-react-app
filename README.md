@@ -24,4 +24,4 @@ After the script has completed just fix the script in package.json and your good
 - [x] Include prettier
 - [ ] Include eslint
 - [ ] Include jest
-- [ ] Include husky
+- [x] Include husky

@@ -55,6 +55,13 @@ yarn add --dev --exact prettier
 echo -e "$TEMP_PRETTIER_IGNORE"  > .prettierignore
 echo -e "$TEMP_PRETTIER_RC" > .prettierrc.json
 
+## add precommit hook
+npx husky-init
+yarn add --dev pretty-quick
+mkdir .husky
+yarn husky set .husky/pre-commit "npx pretty-quick --staged"
+
+
 ## TODO replace scripts in package.json
 echo -e "$TEMP_SCRIPT" >> package.json
 
